@@ -2,7 +2,6 @@
 
 namespace App\Utils;
 
-use App\Middleware\CorsMiddleware;
 use Hyperf\HttpServer\Router\Router as RouterP;
 
 /**
