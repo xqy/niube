@@ -1,12 +1,5 @@
-# Default Dockerfile
-#
-# @link     https://www.hyperf.io
-# @document https://doc.hyperf.io
-# @contact  group@hyperf.io
-# @license  https://github.com/hyperf-cloud/hyperf/blob/master/LICENSE
-
-FROM hyperf/hyperf:7.2-alpine-v3.9-cli
-LABEL maintainer="Hyperf Developers <group@hyperf.io>" version="1.0" license="MIT" app.name="Hyperf"
+FROM xqy/niube
+LABEL maintainer="1556147829@qq.com" version="1.0" license="MIT" app.name="myApp"
 
 ##
 # ---------- env settings ----------
@@ -47,15 +40,15 @@ RUN set -ex \
     && rm -rf /var/cache/apk/* /tmp/* /usr/share/man \
     && echo -e "\033[42;37m Build Completed :).\033[0m\n"
 
-WORKDIR /opt/www
+WORKDIR /data/www
 
 # Composer Cache
 # COPY ./composer.* /opt/www/
 # RUN composer install --no-dev --no-scripts
 
-COPY . /opt/www
+COPY . /data/www
 RUN composer install --no-dev -o && php bin/hyperf.php
 
 EXPOSE 9501
 
-ENTRYPOINT ["php", "/opt/www/bin/hyperf.php", "start"]
+ENTRYPOINT ["php", "/data/www/bin/startup.php", "start"]
