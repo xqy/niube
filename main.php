@@ -1,9 +1,36 @@
 <?php
 
+use App\Utils\SnowFlake;
 use Swoole\Process;
 
 require __DIR__. "/vendor/autoload.php";
 
+
+
+
+$snowFlake = new SnowFlake(1);
+
+$num = 1000000;
+
+$time = $snowFlake->getCurMicrotime();
+
+echo $time . PHP_EOL;
+
+for ($i=0; $i < $num; $i++) { 
+    $snowFlake->generateOrderId2();
+}
+
+echo $num . "个消耗时间：" . ($snowFlake->getCurMicrotime() - $time) . PHP_EOL;
+
+$time = $snowFlake->getCurMicrotime();
+
+for ($i=0; $i < $num; $i++) { 
+    $snowFlake->generateOrderId();
+}
+
+echo $num . "个消耗时间：" . ($snowFlake->getCurMicrotime() - $time) . PHP_EOL;
+
+exit;
 
 Co::set(["hook_flags" => SWOOLE_HOOK_SLEEP]);
 
