@@ -2,6 +2,7 @@
 
 use Swoole\Coroutine\WaitGroup;
 
+
 Co\run(function() {
     $wg = new WaitGroup();
 
