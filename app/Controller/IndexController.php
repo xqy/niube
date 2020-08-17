@@ -17,6 +17,7 @@ use App\Service\QueueService;
 use Hyperf\Utils\ApplicationContext;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\Utils\Context;
+use Hyperf\Utils\Coroutine;
 
 class IndexController extends AbstractController
 {
@@ -79,6 +80,13 @@ class IndexController extends AbstractController
 
     public function token()
     {
+        $cid = Coroutine::id();
+
+        $pid = posix_getpid();
+
+        var_dump($cid);
+        var_dump($pid);
+
         $token = User::getToken(11, "user");
 
         $this->success('', $token);

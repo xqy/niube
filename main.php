@@ -6,8 +6,6 @@ use Swoole\Process;
 require __DIR__. "/vendor/autoload.php";
 
 
-
-
 $snowFlake = new SnowFlake(1);
 
 $num = 1000000;
@@ -31,6 +29,9 @@ for ($i=0; $i < $num; $i++) {
 echo $num . "个消耗时间：" . ($snowFlake->getCurMicrotime() - $time) . PHP_EOL;
 
 exit;
+
+
+// 在协程中无法使用锁，请谨慎使用，不要在 lock 和 unlock 操作中间使用可能引起协程切换的 API。尽量使用channel
 
 Co::set(["hook_flags" => SWOOLE_HOOK_SLEEP]);
 
