@@ -2,8 +2,26 @@
 
 use App\Utils\SnowFlake;
 use Swoole\Process;
+use Swoole\Lock;
 
 require __DIR__. "/vendor/autoload.php";
+
+Co::set(['hook_flags'=> SWOOLE_HOOK_ALL]);
+
+Co\run(function(){
+    $lock = new Swoole\Lock(Lock::MUTEX);
+    $c = 2;
+    while ($c--) {
+        go(function () use ($lock, $c) {
+            $lock->lock();//获得锁
+            echo $c . "\n";
+            Co::sleep(1);//让出cpu
+            $lock->unlock();//释放锁
+        });
+    }
+});
+
+while(1){}
 
 
 $snowFlake = new SnowFlake(1);
