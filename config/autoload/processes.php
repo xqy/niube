@@ -12,4 +12,5 @@ declare(strict_types=1);
 return [
     App\Process\AsyncQueueConsumer::class,
     // App\Process\MyProcess::class,
+    App\Process\BigData::class,
 ];
