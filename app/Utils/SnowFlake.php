@@ -3,7 +3,7 @@
 namespace App\Utils;
 
 /**
- * 基于snowflake算法实现的高效php分布式ID生成器
+ * 基于snowflake算法实现的高效php分布式ID生成器（多线程）
  */
 class SnowFlake
 {
@@ -58,9 +58,9 @@ class SnowFlake
     protected $timeStamp;
 
     /**
-     * 锁，用于线程安全
+     * 锁，用于线程安全,php没有线程，swoole协程使用锁也无意义，暂时不用
      */
-    protected $lock;
+    //protected $lock;
 
     public function __construct($workerId)
     {
@@ -79,7 +79,7 @@ class SnowFlake
      */
     public function generateId()
     {
-        $this->lock->lock();
+        //$this->lock->lock();
         $now = $this->getCurMicrotime();
 
         if ($this->timeStamp == $now) {
@@ -97,7 +97,7 @@ class SnowFlake
 
         $this->timeStamp = $now;
         $id = (($now - self::TIMEEPOCH) << self::TIME_SHIFT) | ($this->workerId << self::TIME_SHIFT) | $this->sequence;
-        $this->lock->unlock();
+        //$this->lock->unlock();
 
         return $id;
     }
