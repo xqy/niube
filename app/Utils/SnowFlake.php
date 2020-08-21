@@ -3,7 +3,7 @@
 namespace App\Utils;
 
 /**
- * 基于snowflake算法实现的高效php分布式ID生成器（多线程）
+ * 基于snowflake算法实现的高效php分布式ID生成器（非多线程）
  */
 class SnowFlake
 {
