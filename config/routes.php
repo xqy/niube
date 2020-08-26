@@ -12,6 +12,7 @@ Router::get('/queue', 'App\Controller\IndexController@queue');
 Router::addRoute(['GET', 'POST', 'HEAD'], '/rl', 'App\Controller\IndexController@redisList');
 
 Router::get('/token', 'App\Controller\IndexController@token');
+Router::get('/tb', 'App\Controller\IndexController@api');
 
 Router::addGroup(
     '/mp', function () {

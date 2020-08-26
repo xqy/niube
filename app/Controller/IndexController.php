@@ -18,6 +18,9 @@ use Hyperf\Utils\ApplicationContext;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\Utils\Context;
 use Hyperf\Utils\Coroutine;
+use GuzzleHttp\Client;
+use Hyperf\Guzzle\CoroutineHandler;
+use GuzzleHttp\HandlerStack;
 
 class IndexController extends AbstractController
 {
@@ -91,4 +94,27 @@ class IndexController extends AbstractController
 
         $this->success('', $token);
     }
+
+    public function api()
+    {
+        $appkey = "ajOqShL3EtTNdnTSMp1JtKchIRlXT7Rr";
+
+        $data = [
+            "apikey" => $appkey,
+            "tkl"    => "fu至内容¢m6tKc22dRvK¢打楷τa0寳【新款3d立体一棵树花朵壁画北欧现代卧室客厅电视背景墙壁纸影视墙】"
+        ];
+
+
+        $client = new Client();
+
+        $response = $client->request('POST', 'http://api.tbk.dingdanxia.com/tkl/coupon_tkl', $data);
+
+        var_dump($response->getBody()->getContents());
+
+
+
+        $this->success('', $response);
+    }
+
+
 }
