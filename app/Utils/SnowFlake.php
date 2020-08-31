@@ -66,7 +66,6 @@ class SnowFlake
         $this->timeStamp = 0;
         $this->workerId = $workerId;
         $this->sequence = 0;
-        $this->lock = new \swoole_lock(SWOOLE_MUTEX);
     }
 
     /**
