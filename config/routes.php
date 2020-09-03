@@ -8,7 +8,7 @@ use App\Utils\Router;
 
 Router::get('/', 'App\Controller\IndexController@index');
 Router::get('/favicon.ico', 'App\Controller\IndexController@favicon');
-Router::get('/queue', 'App\Controller\IndexController@queue');
+Router::get('/queue', 'App\Controller\QueueController@produce');
 Router::addRoute(['GET', 'POST', 'HEAD'], '/rl', 'App\Controller\IndexController@redisList');
 
 Router::get('/token', 'App\Controller\IndexController@token');

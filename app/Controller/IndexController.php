@@ -13,7 +13,6 @@ namespace App\Controller;
 
 use App\Model\User;
 use Hyperf\DbConnection\Db;
-use App\Service\QueueService;
 use Hyperf\Utils\ApplicationContext;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\Utils\Context;
@@ -24,11 +23,6 @@ use GuzzleHttp\HandlerStack;
 
 class IndexController extends AbstractController
 {
-    /**
-     * @Inject
-     * @var QueueService
-     */
-    protected $service;
 
     public function index()
     {
@@ -48,12 +42,6 @@ class IndexController extends AbstractController
         return "favicon.ico";
     }
 
-    public function queue()
-    {
-        $this->service->push(['a','b','c', microtime()], 3);
-
-        return 'success';
-    }
 
     public function redisList()
     {
