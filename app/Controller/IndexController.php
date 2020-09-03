@@ -50,11 +50,7 @@ class IndexController extends AbstractController
 
     public function queue()
     {
-        $this->service->push([
-            'group@hyperf.io',
-            'https://doc.hyperf.io',
-            'https://www.hyperf.io',
-        ], 3);
+        $this->service->push(['a','b','c', microtime()], 3);
 
         return 'success';
     }
@@ -65,7 +61,7 @@ class IndexController extends AbstractController
 
         $redis = $container->get(\Hyperf\Redis\Redis::class);
 
-        $tasks = $redis->LRANGE("jobs", 0, -1);
+        $tasks = $redis->ZRANGE("queue:delayed", 0, time()+ 90000, "WITHSCORES");
 
         return $tasks;
     }

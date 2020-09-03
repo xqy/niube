@@ -21,12 +21,8 @@ class ExampleJob extends Job
     {
         // 根据参数处理具体逻辑
         // 通过具体参数获取模型等
-        var_dump($this->params);
+        echo "执行了队列任务喔\n";
 
-        $container = ApplicationContext::getContainer();
-
-        $redis = $container->get(\Hyperf\Redis\Redis::class);
-
-        $redis->lpush("jobs", "task:" . $this->params[0] . " - " . time());
+        sleep(10);
     }
 }
