@@ -16,9 +16,9 @@ class QueueController extends AbstractController
 
     public function produce()
     {
-        $index = 0;
-        $param = ['a','b','c', microtime()];
-        $delay = 3;
+        $index = $this->request->input('index', 0);
+        $param = $this->request->input('param', '');
+        $delay = $this->request->input('delay', 0);
 
         $this->service->push($index, $param, $delay);
 
