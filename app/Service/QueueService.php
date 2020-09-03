@@ -30,7 +30,7 @@ class QueueService
         // 这里的 `ExampleJob` 会被序列化存到 Redis 中，所以内部变量最好只传入普通数据
         // 同理，如果内部使用了注解 @Value 会把对应对象一起序列化，导致消息体变大。
         // 所以这里也不推荐使用 `make` 方法来创建 `Job` 对象。
-        // 序列化后如果值一样，重复消息会覆盖，导致时间一直延后，这个bug
+        // 序列化后如果值一样，重复消息会覆盖，导致时间一直延后，这是bug
         return $this->driver->push(new ExampleJob($params), $delay);
     }
 }
