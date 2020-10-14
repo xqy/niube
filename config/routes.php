@@ -13,6 +13,7 @@ Router::addRoute(['GET', 'POST', 'HEAD'], '/rl', 'App\Controller\IndexController
 
 Router::get('/token', 'App\Controller\IndexController@token');
 Router::get('/tb', 'App\Controller\IndexController@api');
+Router::get('/bar', 'App\Controller\IndexController@bar');
 
 Router::addGroup(
     '/mp', function () {

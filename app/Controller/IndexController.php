@@ -18,11 +18,28 @@ use Hyperf\Di\Annotation\Inject;
 use Hyperf\Utils\Context;
 use Hyperf\Utils\Coroutine;
 use GuzzleHttp\Client;
-use Hyperf\Guzzle\CoroutineHandler;
-use GuzzleHttp\HandlerStack;
+use Hyperf\HttpServer\Contract\ResponseInterface;
+use Hyperf\Guzzle\ClientFactory;
 
 class IndexController extends AbstractController
 {
+    /**
+     * @var \Hyperf\Guzzle\ClientFactory
+     */
+    private $clientFactory;
+
+    public function __construct(ClientFactory $clientFactory)
+    {
+        $this->clientFactory = $clientFactory;
+    }
+
+    public function bar(ResponseInterface $response)
+    {
+        $client = $this->clientFactory->create();
+        $res = $client->request('GET', 'http://www.baidu.com');
+        $data = $res->getBody()->__toString();
+        return $response->json($data);
+    }
 
     public function index()
     {
@@ -41,7 +58,6 @@ class IndexController extends AbstractController
     {
         return "favicon.ico";
     }
-
 
     public function redisList()
     {
