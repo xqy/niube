@@ -15,6 +15,9 @@ use Hyperf\Utils\Context;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+/**
+ * 用户模型
+ */
 class User extends Model
 {
 
@@ -22,6 +25,9 @@ class User extends Model
 
     const KEY = "id";
 
+    /**
+     * 获取token
+     */
     public static function getToken($id, string $type, array $params = []): array
     {
         $request = Context::get(ServerRequestInterface::class);
@@ -42,6 +48,9 @@ class User extends Model
         return compact('token', 'params');
     }
 
+    /**
+     * 解析token
+     */
     public static function parseToken(string $jwt): array
     {
         JWT::$leeway = 60;
@@ -51,7 +60,9 @@ class User extends Model
         return [Db::table("user")->where('id', $data->jti->id)->first(), $data->jti->type];
     }
 
-
+    /**
+     * 验证token
+     */
     public static function authToken($token): array
     {
         if (!$token || !$tokenData = Db::table("user_token")->where('token', $token)->first())
